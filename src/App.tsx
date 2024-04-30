@@ -4,6 +4,7 @@ import Meny from './components/Meny';
 import AddTask from './components/AddTask';
 
 interface Task {
+  id: string;
   name: string;
   startTime: string;
   endTime: string;
@@ -59,10 +60,21 @@ function App() {
         <div key={index}>
           <h2>{task.name}</h2>
           <p>Duration: {task.duration}</p>
+          <button onClick={() => handleDeleteTask(task.id)}>Ta bort task</button>
         </div>
+        
       ))}
     </>
   );
+  function handleDeleteTask(id: string) {
+    fetch(`http://localhost:8080/task/delete/${id}`, {
+      method: 'DELETE',
+    })
+    .then(() => {
+      setTasks(tasks.filter(task => task.id !== id));
+    });
+  }
 }
+
 
 export default App
