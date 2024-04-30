@@ -3,9 +3,17 @@ import './App.css'
 import Meny from './components/Meny';
 import AddTask from './components/AddTask';
 
+interface Task {
+  name: string;
+  startTime: string;
+  endTime: string;
+  duration: string;
+};
+
 function App() {
   const [message, setMessage] = useState(''); 
   const [page, setPage] = useState<string>("");
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   let pageUrl = page;
 
@@ -32,6 +40,11 @@ function App() {
 
   }
   , [])
+  useEffect(() => {
+    fetch('http://localhost:8080/task/all')
+    .then(response => response.json())
+    .then(data => setTasks(data))
+  }, [])
 
   return (
     <>
@@ -41,6 +54,13 @@ function App() {
         AddTask: <AddTask />,
       }[page] || <AddTask />}
       <p>{message}</p>
+      <h2>Alla tasks:</h2>
+      {tasks.map((task: any, index: number) => (
+        <div key={index}>
+          <h2>{task.name}</h2>
+          <p>Duration: {task.duration}</p>
+        </div>
+      ))}
     </>
   );
 }
