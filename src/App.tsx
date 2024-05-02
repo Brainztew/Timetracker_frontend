@@ -3,6 +3,7 @@ import './App.css'
 import Meny from './components/Meny';
 import AddTask from './components/AddTask';
 import ChangeTaskName from './components/ChangeTaskName';
+import Timer from './components/Timer';
 
 interface Task {
   id: string;
@@ -57,7 +58,7 @@ function App() {
         <div id="TaskStyling" key={index}>
           <h2>{task.name}</h2>
           <ChangeTaskName id={task.id} onTaskNameChange={handleTaskNameChange} />
-          <p>Duration: {task.duration}</p>
+          <Timer id={task.id} />
           <button onClick={() => handleDeleteTask(task.id)}>Ta bort task</button>
         </div>
       ))}
