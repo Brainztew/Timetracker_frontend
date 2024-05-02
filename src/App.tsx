@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Meny from './components/Meny';
 import AddTask from './components/AddTask';
+import ChangeTaskName from './components/ChangeTaskName';
 
 interface Task {
   id: string;
@@ -15,6 +16,10 @@ function App() {
   const [message, setMessage] = useState(''); 
   const [page, setPage] = useState<string>("");
   const [tasks, setTasks] = useState<Task[]>([]);
+  const handleTaskNameChange = (id: string, newName: string) => {
+    setTasks(tasks.map(task => task.id === id ? { ...task, name: newName } : task));
+  };
+
 
   let pageUrl = page;
 
@@ -34,18 +39,10 @@ function App() {
   }, [page]);
   
   useEffect(() => {
-    console.log('Hello Vite + React!')
-    fetch('http://localhost:8080/task/hello')
-    .then(response => response.text())
-    .then(data => setMessage(data))
-
-  }
-  , [])
-  useEffect(() => {
     fetch('http://localhost:8080/task/all')
     .then(response => response.json())
     .then(data => setTasks(data))
-  }, [])
+  }, [tasks])
 
   return (
     <>
@@ -57,15 +54,16 @@ function App() {
       <p>{message}</p>
       <h2>Alla tasks:</h2>
       {tasks.map((task: any, index: number) => (
-        <div key={index}>
+        <div id="TaskStyling" key={index}>
           <h2>{task.name}</h2>
+          <ChangeTaskName id={task.id} onTaskNameChange={handleTaskNameChange} />
           <p>Duration: {task.duration}</p>
           <button onClick={() => handleDeleteTask(task.id)}>Ta bort task</button>
         </div>
-        
       ))}
     </>
   );
+
   function handleDeleteTask(id: string) {
     fetch(`http://localhost:8080/task/delete/${id}`, {
       method: 'DELETE',
