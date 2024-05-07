@@ -7,9 +7,10 @@ interface ChangeTaskNameProps {
 
 function ChangeTaskName({id, onTaskNameChange}: ChangeTaskNameProps) {
     const [newName, setNewName] = useState('');
+    const userid = localStorage.getItem('userId');
 
     const handleChangeName = () => {
-        fetch(`http://localhost:8080/task/update/${id}`, {
+        fetch(`http://localhost:8080/task/update/${id}?userId=${userid}`, {
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',
