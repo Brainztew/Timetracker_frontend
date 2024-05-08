@@ -47,7 +47,7 @@ function Timer({id}: TimerProps) {
       <div>Slut Tid: {endTime}</div>
       <p>Total Tid: {formatDuration(duration)}</p>
       <button onClick={toggleTimer}>
-        {isTimerRunning ? 'End Timer' : 'Start Timer'}
+        {isTimerRunning ? 'Stoppa Timer' : 'Start Timer'}
       </button>
     </div>
   )

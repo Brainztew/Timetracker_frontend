@@ -36,7 +36,7 @@ useEffect(() => {
     .catch(error => {
       console.error('Error:', error);
     });
-}, [tasks]);
+}, [task]);
 
 const handleTaskNameChange = (id: string, newName: string) => {
   setTasks(tasks.map(task => task.id === id ? { ...task, name: newName } : task));

@@ -1,53 +1,95 @@
 import React, { useState } from 'react'
 
-function LoginUser() {
+
+type UserTotal = {
+  user: {
+      id: number;
+      username: string;
+  };
+  totalDuration: number;
+};
+
+interface LoginUserProps {
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
+  
     const [username, setuserName] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    
+    const [users, setUsers] = useState<UserTotal[]>(JSON.parse(localStorage.getItem('users') || '[]'));
+    const [isAdmin, setIsAdmin] = useState<boolean>(localStorage.getItem('userId') !== null); 
 
     const handleLoginUser = (event: React.MouseEvent) => {
-        event.preventDefault();
-        fetch('http://localhost:8080/user/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: username,
-            password: password,
-          }),
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          }
-          return response.text();
-        })
-        .then(userId => {
-          localStorage.setItem('userId', userId);
-          setErrorMessage('inloggad!');
-          console.log(userId);
-          window.location.reload();
-          
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          setErrorMessage('Fel användarnamn eller lösenord');
-        });
-      };
+      event.preventDefault();
+      fetch('http://localhost:8080/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('userId', data.userId);
+        setLoggedIn(true);
+        if (data.isAdmin) {
+          console.log('is admin');
+          setIsAdmin(true);
+          fetchUsers();
+        }
+        setErrorMessage('inloggad!');
+        console.log(data.userId);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setErrorMessage('Fel användarnamn eller lösenord');
+      });
+      
+    };
 
+  const fetchUsers = () => {
+    const userId = localStorage.getItem('userId');
+    fetch(`http://localhost:8080/user/all?userId=${userId}`)
+    .then(response => response.json())
+    .then(data => {
+      setUsers(data);
+      localStorage.setItem('users', JSON.stringify(data));
+      setErrorMessage('Här är alla användares sammanlagda tider:');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+    
+}
 
 
 return (
     <div>
-        <h2>Logga in användare</h2>
+        
         <form action="">
+          {!localStorage.getItem('userId') && (
+            <>
+            <h2>Logga in användare</h2>
             <input type="text" placeholder="Namn" value={username} onChange={e => setuserName(e.target.value)}/>
             <input type="password" placeholder="Lösenord" value={password} onChange={e => setPassword(e.target.value)}/>
             <button onClick={handleLoginUser}>Logga in</button>
+            </>
+          )}
             {errorMessage && <p>{errorMessage}</p>} 
+            {isAdmin && JSON.parse(localStorage.getItem('users') || '[]').map((user: UserTotal) => (
+              <div key={user.user.id}>
+                  <h3>{user.user.username}</h3>
+                  <p>Total tid: {user.totalDuration} minuter</p>
+              </div>
+                ))}
         </form>
+
     </div>
 )
 }

@@ -8,6 +8,7 @@ import LogoutUser from './components/LogoutUser';
 import Home from './components/Home';
 
 function App() {
+  
   const [page, setPage] = useState<string>("");
  const [LoggedIn, setLoggedIn] = useState(false);
 
@@ -36,6 +37,8 @@ function App() {
     }
     window.history.pushState(null, "", "?page=" + pageUrl);
   }, [page, LoggedIn, pageUrl]);
+
+
   
 
   return (
@@ -45,8 +48,8 @@ function App() {
       {{
         AddTask: <AddTask />,
         AddUser: <AddUser />,
-        LoginUser: <LoginUser />,
-        LogoutUser: <LogoutUser />,
+        LoginUser: <LoginUser  setLoggedIn={setLoggedIn}/>,
+        LogoutUser: <LogoutUser setLoggedIn={setLoggedIn} />,
         Home: <Home />
       }[page] || <Home />}
     </>

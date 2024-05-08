@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 
-function LogoutUser() {
+interface LogoutUserProps {
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-    useEffect(() => {
-        localStorage.clear();
-    }, []);
+const LogoutUser: React.FC<LogoutUserProps> = ({ setLoggedIn }) => {
+  useEffect(() => {
+    localStorage.clear();
+    setLoggedIn(false); // set LoggedIn to false when the component mounts
+  }, [setLoggedIn]); // add setLoggedIn to the dependency array
 
-
-    return (
+  return (
     <div>Du är nu utloggad!</div>
   )
 }
