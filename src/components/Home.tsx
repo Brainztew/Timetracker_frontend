@@ -2,7 +2,10 @@ import React from 'react'
 
 function Home() {
   return (
-    <div>Kul när hem funkar</div>
+    <div>Kul när hem funkar
+               
+    </div>
+
   )
 }
 
