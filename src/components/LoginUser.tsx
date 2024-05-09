@@ -60,7 +60,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
     .then(data => {
       setUsers(data);
       localStorage.setItem('users', JSON.stringify(data));
-      setErrorMessage('Här är alla användares sammanlagda tider:');
+      setErrorMessage('Grattis du är Admin! Här är alla användares sammanlagda tider:');
     })
     .catch(error => {
       console.error('Error:', error);
