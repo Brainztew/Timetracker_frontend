@@ -10,7 +10,7 @@ function ChangeTaskName({id, onTaskNameChange}: ChangeTaskNameProps) {
     const userid = localStorage.getItem('userId');
 
     const handleChangeName = () => {
-        fetch(`http://localhost:8080/task/update/${id}?userId=${userid}`, {
+        fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app/task/update/${id}?userId=${userid}`, {
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',

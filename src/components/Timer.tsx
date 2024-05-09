@@ -16,7 +16,7 @@ function Timer({id}: TimerProps) {
   } , [id, endTime]);
 
   const fetchTask = async () => {
-    const response = await fetch(`http://localhost:8080/task/${id}`);
+    const response = await fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app/task/${id}`);
     const data = await response.json();
     setIsRunning(data.timerRunning);
     setDuration(data.totalDuration);
@@ -29,7 +29,7 @@ function Timer({id}: TimerProps) {
 
   const toggleTimer = async () => {
     const userId = localStorage.getItem('userId');
-    const url = `http://localhost:8080/task/${isTimerRunning ? 'end' : 'start'}/${id}?userId=${userId}`;
+    const url = `https://jellyfish-app-hcwp7.ondigitalocean.app/task/${isTimerRunning ? 'end' : 'start'}/${id}?userId=${userId}`;
     await fetch(url, { method: 'POST' });
     fetchTask();
   };

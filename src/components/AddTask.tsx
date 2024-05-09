@@ -19,7 +19,7 @@ const userid = localStorage.getItem('userId');
 
 
 useEffect(() => {
-  fetch(`http://localhost:8080/task/user/${userid}`)
+  fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app/task/user/${userid}`)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -43,7 +43,7 @@ const handleTaskNameChange = (id: string, newName: string) => {
 };
 
 const handleAddTask = () => {
-  fetch(`http://localhost:8080/task/create?userId=${userid}`, {
+  fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app/task/create?userId=${userid}`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const handleAddTask = () => {
   );
 
   function handleDeleteTask(id: string) {
-    fetch(`http://localhost:8080/task/delete/${id}?userId=${userid}`, {
+    fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app/task/delete/${id}?userId=${userid}`, {
       method: 'DELETE',
     })
     .then(() => {

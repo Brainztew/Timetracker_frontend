@@ -19,12 +19,12 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
     const [username, setuserName] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [, setUsers] = useState<UserTotal[]>(JSON.parse(localStorage.getItem('users') || '[]'));
+    const [,setUsers] = useState<UserTotal[]>(JSON.parse(localStorage.getItem('users') || '[]'));
     const [isAdmin, setIsAdmin] = useState<boolean>(localStorage.getItem('userId') !== null); 
 
     const handleLoginUser = (event: React.MouseEvent) => {
       event.preventDefault();
-      fetch('http://localhost:8080/user/login', {
+      fetch('https://jellyfish-app-hcwp7.ondigitalocean.app//user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
 
   const fetchUsers = () => {
     const userId = localStorage.getItem('userId');
-    fetch(`http://localhost:8080/user/all?userId=${userId}`)
+    fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app//all?userId=${userId}`)
     .then(response => response.json())
     .then(data => {
       setUsers(data);
