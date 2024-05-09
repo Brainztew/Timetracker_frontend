@@ -11,7 +11,7 @@ function AddUser() {
             setMessage('Lösenord måste minst vara 6 tecken långt!');
             return;
         }
-        fetch('http://localhost:8080/user/register', {
+        fetch('https://jellyfish-app-hcwp7.ondigitalocean.app/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
