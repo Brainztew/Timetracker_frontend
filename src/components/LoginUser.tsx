@@ -44,7 +44,6 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
           fetchUsers();
         }
         setErrorMessage('inloggad!');
-        console.log(data.userId);
       })
       .catch(error => {
         console.error('Error:', error);
