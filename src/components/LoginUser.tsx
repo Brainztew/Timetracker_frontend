@@ -19,7 +19,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
     const [username, setuserName] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [users, setUsers] = useState<UserTotal[]>(JSON.parse(localStorage.getItem('users') || '[]'));
+    const [, setUsers] = useState<UserTotal[]>(JSON.parse(localStorage.getItem('users') || '[]'));
     const [isAdmin, setIsAdmin] = useState<boolean>(localStorage.getItem('userId') !== null); 
 
     const handleLoginUser = (event: React.MouseEvent) => {

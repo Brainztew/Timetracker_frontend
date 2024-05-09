@@ -4,7 +4,7 @@ interface Props {
 }
 
 function Meny(props: Props) {
-  const { setPage, LoggedIn } = props;
+  const {  LoggedIn } = props;
 
   return (
     <div>
