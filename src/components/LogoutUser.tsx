@@ -7,8 +7,8 @@ interface LogoutUserProps {
 const LogoutUser: React.FC<LogoutUserProps> = ({ setLoggedIn }) => {
   useEffect(() => {
     localStorage.clear();
-    setLoggedIn(false); // set LoggedIn to false when the component mounts
-  }, [setLoggedIn]); // add setLoggedIn to the dependency array
+    setLoggedIn(false); 
+  }, [setLoggedIn]); 
 
   return (
     <div>Du är nu utloggad!</div>
