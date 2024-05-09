@@ -24,7 +24,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
 
     const handleLoginUser = (event: React.MouseEvent) => {
       event.preventDefault();
-      fetch('https://jellyfish-app-hcwp7.ondigitalocean.app//user/login', {
+      fetch('https://jellyfish-app-hcwp7.ondigitalocean.app/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ setLoggedIn }) => {
 
   const fetchUsers = () => {
     const userId = localStorage.getItem('userId');
-    fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app//all?userId=${userId}`)
+    fetch(`https://jellyfish-app-hcwp7.ondigitalocean.app/all?userId=${userId}`)
     .then(response => response.json())
     .then(data => {
       setUsers(data);
